@@ -1,0 +1,24 @@
+services:
+  backend:
+    build: .
+    container_name: US-backend
+    ports:
+      - 8000:8000
+      - 9229:9229
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - PORT=8000
+      - DB_URI=mongodb://db/dev
+    command: 'yarn start:dev'
+  db:
+    image: mongo:latest
+    container_name: db
+    ports:
+      - 27017:27017
+    volumes:
+      - USvolume:/data/db
+
+volumes:
+  USvolume: {}
